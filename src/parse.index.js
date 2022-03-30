@@ -1,6 +1,7 @@
 export const parseIndex = (fileStr, title) => {
-   const strArr = fileStr.split("\n");
+   const strArr = fileStr.trim().split("\n");
    const newArr = strArr.splice(0, strArr.length - 1);
+
    newArr.push(`import ${title} from "./${title}"`);
    newArr.push(strArr[strArr.length - 1]);
    const temp = newArr[newArr.length - 1].split("");
