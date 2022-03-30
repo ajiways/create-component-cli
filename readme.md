@@ -20,11 +20,11 @@ create-component Header
 
 ## Flags:
 
-### "--css" or "-c" - Use css extension to create style module.
+### "--css" or "-c" - Use css extension to create style module. (By default)
 
 ### "--scss" or "-s" - Use scss extension to create style module.
 
-### "--js" or "-j" - Use JSX to create component file.
+### "--js" or "-j" - Use JSX to create component file. (By default)
 
 ### "--ts" or "-t" - Use TSX to create component file.
 
