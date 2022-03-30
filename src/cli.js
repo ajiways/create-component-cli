@@ -1,4 +1,5 @@
 import arg from "arg";
+import { resolve } from "path";
 import { createComponent } from ".";
 
 const parseArgsIntoOptions = (rawArgs) => {
@@ -10,12 +11,14 @@ const parseArgsIntoOptions = (rawArgs) => {
          "--ts": Boolean,
          "--props": Boolean,
          "--no-index": Boolean,
+         "--folder": String,
          "-j": "--js",
          "-t": "--ts",
          "-c": "--css",
          "-s": "--scss",
          "-p": "--props",
          "-n": "--no-index",
+         "-f": "--folder",
       },
       {
          argv: rawArgs.slice(2),
@@ -30,8 +33,14 @@ const parseArgsIntoOptions = (rawArgs) => {
       setTsx: args["--ts"] || false,
       useProps: args["--props"] || false,
       noIndex: args["--no-index"] || false,
+      folder: args["--folder"] || null,
    };
 };
+// export const cli = (args) => {
+//    const options = parseArgsIntoOptions(args);
+//    const execPath = process.cwd() + "/src/components/";
+//    console.log(resolve(execPath + options.folder));
+// };
 
 export const cli = (args) => {
    try {

@@ -31,3 +31,13 @@ create-component Header
 ### "--props" or "-p" - Include props interface into component file. (Can be used only with TSX)
 
 ### "--no-index" or "-n" - Disable index file in main components directory that contains more comfortable imports and exports for your components.
+
+### "--folder" or "-f" - Add nested folder to your components directory.
+
+### For example:
+
+```
+create-component Button --folder=UI
+```
+
+#### Result: path/to/your/project/src/components/UI/Button/...
