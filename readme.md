@@ -4,9 +4,9 @@
 
 ## Usage:
 
-### enter create-component %component_name%
+### Enter: create-component %component_name%
 
-### By default will create jsx and css module file.
+### By default will create jsx and css module file in your project src/components directory.
 
 ### for example:
 
