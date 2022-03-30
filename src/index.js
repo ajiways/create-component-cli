@@ -112,7 +112,7 @@ export const createComponent = (
       if (useProps) {
          fs.appendFile(
             resolve(execPath, title, "index.tsx"),
-            TSPropsTemplate(title),
+            TSPropsTemplate(title, styleType),
             () =>
                console.log(
                   "---> Component file with props was successfully created! <---"
