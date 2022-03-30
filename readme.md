@@ -32,7 +32,7 @@ create-component Header
 
 ### "--no-index" or "-n" - Disable index file in main components directory that contains more comfortable imports and exports for your components.
 
-### "--folder=%NAME%" or "-f=%NAME%" - Add nested folder to your components directory.
+### "--folder=%NAME%" or "-f %NAME%" - Add nested folder to your components directory.
 
 ### For example:
 
