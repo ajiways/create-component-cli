@@ -4,7 +4,7 @@
 
 ## Usage:
 
-### Enter: create-component %component_name%
+### Enter: create-component %component_name% (or cc %component_name%)
 
 ### By default will create jsx and css module file in your project src/components directory.
 
@@ -32,7 +32,7 @@ create-component Header
 
 ### "--no-index" or "-n" - Disable index file in main components directory that contains more comfortable imports and exports for your components.
 
-### "--folder" or "-f" - Add nested folder to your components directory.
+### "--folder=%NAME%" or "-f=%NAME%" - Add nested folder to your components directory.
 
 ### For example:
 

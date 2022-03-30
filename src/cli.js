@@ -1,5 +1,4 @@
 import arg from "arg";
-import { resolve } from "path";
 import { createComponent } from ".";
 
 const parseArgsIntoOptions = (rawArgs) => {
@@ -36,11 +35,6 @@ const parseArgsIntoOptions = (rawArgs) => {
       folder: args["--folder"] || null,
    };
 };
-// export const cli = (args) => {
-//    const options = parseArgsIntoOptions(args);
-//    const execPath = process.cwd() + "/src/components/";
-//    console.log(resolve(execPath + options.folder));
-// };
 
 export const cli = (args) => {
    try {
@@ -77,7 +71,6 @@ export const cli = (args) => {
 
       createComponent(options, execPath);
    } catch (error) {
-      console.log(error);
       console.log("!!!-> Error: Wrong args passed! <-!!!");
    }
 };
