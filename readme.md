@@ -14,7 +14,7 @@
 create-component Header
 ```
 
-### In selected dir will appear two files, index.jsx and Header.module.css
+### In your path/to/project/src/components will appear index.jsx and Header.module.css
 
 ### This files contains default react component structure
 
