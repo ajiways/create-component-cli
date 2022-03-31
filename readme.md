@@ -37,7 +37,13 @@ create-component Header
 ### For example:
 
 ```
-create-component Button --folder=UI
+create-component Button -f UI
 ```
 
 #### Result: path/to/your/project/src/components/UI/Button/...
+
+### Links:
+
+#### [GitHub Repository](https://github.com/ajiways/create-component-cli)
+
+#### [Npm package](https://www.npmjs.com/package/@kswbtw/create-component-cli)
