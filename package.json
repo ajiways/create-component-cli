@@ -1,7 +1,7 @@
 {
    "name": "@kswbtw/create-component-cli",
-   "version": "1.1.7",
-   "description": "A simple cli that helps to create react components faster",
+   "version": "1.1.8",
+   "description": "A simple cli that helps to create react components faster.",
    "main": "src/cli.js",
    "bin": {
       "create-component": "bin/create-component",

@@ -45,7 +45,8 @@ create-component Header
  setJsx: Use js to create main component file.   
  setTsx: Use ts to create main component file.   
  useProps: Include props interface into main component file.   
- noIndex: Disable index file in main components directory.  
+ noIndex: Disable index file in main components directory.
+ useClassNames: Include classnames import into your main component file.
 ```  
 
 ### If you don't want to use config file, just use flags instead.
@@ -59,6 +60,7 @@ create-component Header
 "--props" or "-p" - Include props interface into component file. (Can be used only with TSX)   
 "--no-index" or "-n" - Disable index file in main components' directory that contains more comfortable imports and exports for your components.   
 "--folder=%NAME%" or "-f %NAME%" - Add nested folder to your components' directory.   
+"--use-cn" or "-ucn" - Include classnames import into your main component file.
 ```  
 
 ### For example:

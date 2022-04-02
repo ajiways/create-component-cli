@@ -7,9 +7,12 @@ import {TSTemplate} from "./templates/ts.template";
 import {TSPropsTemplate} from "./templates/ts.template.props";
 import {parseIndex} from "./parse.index";
 import chalk from "chalk";
+import {JSClassNamesTemplate} from "./templates/js.ClassNamesTemplate";
+import {TSClassNamesPropsTemplate} from "./templates/ts.classNames.props.template";
+import {TSClassNamesTemplate} from "./templates/ts.classNames.template";
 
 export const createComponent = (
-    {title, addCssExt, addScssExt, setJsx, setTsx, useProps, noIndex, folder},
+    {title, addCssExt, addScssExt, setJsx, setTsx, useProps, noIndex, folder, useClassNames},
     execPath
 ) => {
     let styleType = "";
@@ -54,11 +57,20 @@ export const createComponent = (
     }
 
     if (setJsx) {
-        fs.appendFile(
-            resolve(execPath, title, "index.jsx"),
-            JSTemplate(title, styleType),
-            () => console.log(chalk.green("---> Component file was successfully created! <---"))
-        );
+        if (useClassNames) {
+            fs.appendFile(
+                resolve(execPath, title, "index.jsx"),
+                JSClassNamesTemplate(title, styleType),
+                () => console.log(chalk.green("---> Component file was successfully created! <---"))
+            );
+        } else {
+            fs.appendFile(
+                resolve(execPath, title, "index.jsx"),
+                JSTemplate(title, styleType),
+                () => console.log(chalk.green("---> Component file was successfully created! <---"))
+            );
+        }
+
 
         if (!noIndex) {
             if (!fs.existsSync(resolve(execPath, "index.js"))) {
@@ -107,20 +119,33 @@ export const createComponent = (
         }
 
         if (useProps) {
-            fs.appendFile(
-                resolve(execPath, title, "index.tsx"),
-                TSPropsTemplate(title, styleType),
-                () =>
-                    console.log(
-                        chalk.green("---> Component file with props was successfully created! <---")
-                    )
-            );
-            return;
+            if (useClassNames) {
+                fs.appendFile(
+                    resolve(execPath, title, "index.jsx"),
+                    TSClassNamesPropsTemplate(title, styleType),
+                    () => console.log(chalk.green("---> Component file was successfully created! <---"))
+                );
+            } else {
+                fs.appendFile(
+                    resolve(execPath, title, "index.jsx"),
+                    TSPropsTemplate(title, styleType),
+                    () => console.log(chalk.green("---> Component file was successfully created! <---"))
+                );
+            }
+        } else {
+            if (useClassNames) {
+                fs.appendFile(
+                    resolve(execPath, title, "index.tsx"),
+                    TSClassNamesTemplate(title, styleType),
+                    () => console.log(chalk.green("---> Component file was successfully created! <---"))
+                );
+            } else {
+                fs.appendFile(
+                    resolve(execPath, title, "index.tsx"),
+                    TSTemplate(title, styleType),
+                    () => console.log(chalk.green("---> Component file was successfully created! <---"))
+                );
+            }
         }
-        fs.appendFile(
-            resolve(execPath, title, "index.tsx"),
-            TSTemplate(title, styleType),
-            () => console.log(chalk.green("---> Component file was successfully created! <---"))
-        );
     }
 };

@@ -3,14 +3,13 @@ export const TSTemplate = (title, ext) => {
 import styles from "./${title}.module.${ext}"
 
 const ${title}: FC = () => {
-   return (
-     <div className={styles.${title.toLowerCase()}}>
+    return (
+        <div className={styles.${title.toLowerCase()}}>
  
-     </div>
- );
+        </div>
+    );
 };
   
-export default ${title} ;
-   
+export default ${title};
 `;
 };

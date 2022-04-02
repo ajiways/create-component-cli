@@ -3,13 +3,12 @@ export const JSTemplate = (title, ext) => {
 
 const ${title} = () => {
     return (
-      <div className={styles.${title.toLowerCase()}}>
+        <div className={styles.${title.toLowerCase()}}>
   
-      </div>
-  );
+        </div>
+    );
 };
    
 export default ${title} ;
-    
 `;
 };

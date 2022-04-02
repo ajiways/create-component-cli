@@ -13,6 +13,7 @@ const parseArgsIntoOptions = (rawArgs) => {
             "--props": Boolean,
             "--no-index": Boolean,
             "--folder": String,
+            "--use-cn": Boolean,
             "-j": "--js",
             "-t": "--ts",
             "-c": "--css",
@@ -20,6 +21,7 @@ const parseArgsIntoOptions = (rawArgs) => {
             "-p": "--props",
             "-n": "--no-index",
             "-f": "--folder",
+            "-ucn": "--use-cn"
         },
         {
             argv: rawArgs.slice(2),
@@ -35,6 +37,7 @@ const parseArgsIntoOptions = (rawArgs) => {
         useProps: args["--props"] || false,
         noIndex: args["--no-index"] || false,
         folder: args["--folder"] || null,
+        useClassNames: args["--use-cn"] || false,
     };
 };
 
@@ -103,8 +106,6 @@ export const cli = async (args) => {
             console.log(chalk.red(`!!!-> Error: Wrong component name! <-!!!`));
             return;
         }
-
-        // console.log(options)
 
         createComponent(options, execPath);
     } catch (error) {
