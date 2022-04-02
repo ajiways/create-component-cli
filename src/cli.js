@@ -1,76 +1,113 @@
-import arg from "arg";
-import { createComponent } from ".";
+import arg, {ArgError} from "arg";
+import chalk from "chalk";
+import path from "path";
+import {createComponent} from ".";
 
 const parseArgsIntoOptions = (rawArgs) => {
-   const args = arg(
-      {
-         "--css": Boolean,
-         "--scss": Boolean,
-         "--js": Boolean,
-         "--ts": Boolean,
-         "--props": Boolean,
-         "--no-index": Boolean,
-         "--folder": String,
-         "-j": "--js",
-         "-t": "--ts",
-         "-c": "--css",
-         "-s": "--scss",
-         "-p": "--props",
-         "-n": "--no-index",
-         "-f": "--folder",
-      },
-      {
-         argv: rawArgs.slice(2),
-      }
-   );
+    const args = arg(
+        {
+            "--css": Boolean,
+            "--scss": Boolean,
+            "--js": Boolean,
+            "--ts": Boolean,
+            "--props": Boolean,
+            "--no-index": Boolean,
+            "--folder": String,
+            "-j": "--js",
+            "-t": "--ts",
+            "-c": "--css",
+            "-s": "--scss",
+            "-p": "--props",
+            "-n": "--no-index",
+            "-f": "--folder",
+        },
+        {
+            argv: rawArgs.slice(2),
+        }
+    );
 
-   return {
-      title: args._[0],
-      addCssExt: args["--css"] || true,
-      addScssExt: args["--scss"] || false,
-      setJsx: args["--js"] || true,
-      setTsx: args["--ts"] || false,
-      useProps: args["--props"] || false,
-      noIndex: args["--no-index"] || false,
-      folder: args["--folder"] || null,
-   };
+    return {
+        title: args._[0],
+        addCssExt: args["--css"] || true,
+        addScssExt: args["--scss"] || false,
+        setJsx: args["--js"] || true,
+        setTsx: args["--ts"] || false,
+        useProps: args["--props"] || false,
+        noIndex: args["--no-index"] || false,
+        folder: args["--folder"] || null,
+    };
 };
 
-export const cli = (args) => {
-   try {
-      const options = parseArgsIntoOptions(args);
-      const execPath = process.cwd() + "/src/components/";
+const parseTitleArg = (rawArgs) => {
+    const args = arg({
+        "--folder": String,
+        "-f": "--folder"
+    }, {
+        argv: rawArgs.slice(2),
+    })
 
-      if (options.addScssExt) {
-         options.addCssExt = false;
-      }
+    return {
+        title: args._[0],
+        folder: args["--folder"] || null,
+    }
+}
 
-      if (options.addCssExt) {
-         options.addScssExt = false;
-      }
+export const cli = async (args) => {
+    let options = {};
 
-      if (options.setTsx) {
-         options.setJsx = false;
-      }
+    try {
+        try{
+            const rootProjPath = process.cwd()
+            const data = await import(path.resolve(rootProjPath, ".kclioptions"));
+            options = data.cliOptions;
+            const temp = parseTitleArg(args)
+            options.folder = temp.folder
+            options.title = temp.title
+            console.log(chalk.green("---> Config file was found <---"))
+        } catch (e) {
+            if(e instanceof ArgError) {
+                console.log(chalk.red("!!!-> You can't pass flags (except -f flag) while using config file. <-!!!"))
+                return;
+            }
+            console.log(chalk.yellow("---> No config file was found <---"))
+            options = parseArgsIntoOptions(args);
+        }
 
-      if (options.setJsx) {
-         options.setTsx = false;
-      }
+        const execPath = process.cwd() + "/src/components/";
 
-      if (options.useProps && options.setJsx) {
-         console.log(
-            `!!!-> Error: You can't use interfaces with JSX files. <-!!!`
-         );
-         return;
-      }
 
-      if (typeof options.title !== "string") {
-         console.error(`!!!-> Error: Wrong component name! <-!!!`);
-         return;
-      }
+        if (options.addScssExt) {
+            options.addCssExt = false;
+        }
 
-      createComponent(options, execPath);
-   } catch (error) {
-      console.log("!!!-> Error: Wrong args passed! <-!!!");
-   }
+        if (options.addCssExt) {
+            options.addScssExt = false;
+        }
+
+        if (options.setTsx) {
+            options.setJsx = false;
+        }
+
+        if (options.setJsx) {
+            options.setTsx = false;
+        }
+
+        if (options.useProps && options.setJsx) {
+            console.log(
+                chalk.red(`!!!-> Error: You can't use interfaces with JSX files. <-!!!`)
+            );
+            return;
+        }
+
+        if (typeof options.title !== "string") {
+            console.log(chalk.red(`!!!-> Error: Wrong component name! <-!!!`));
+            return;
+        }
+
+        // console.log(options)
+
+        createComponent(options, execPath);
+    } catch (error) {
+        console.log(chalk.red("!!!-> Error: Wrong args passed! <-!!!"));
+    }
 };
