@@ -41,7 +41,7 @@ const parseArgsIntoOptions = (rawArgs) => {
    };
 };
 
-const parseArgs = (rawArgs) => {
+const parseOptionsArgs = (rawArgs) => {
    const args = arg(
       {
          "--folder": String,
@@ -70,7 +70,8 @@ export const cli = async (args) => {
          const data = await import(path.resolve(rootProjPath, ".kclioptions"));
 
          options = data.cliOptions;
-         const temp = parseArgs(args);
+
+         const temp = parseOptionsArgs(args);
 
          options.folder = temp.folder;
          options.title = temp.title;
@@ -95,17 +96,13 @@ export const cli = async (args) => {
 
       if (options.addScssExt) {
          options.addCssExt = false;
-      }
-
-      if (options.addCssExt) {
+      } else {
          options.addScssExt = false;
       }
 
       if (options.setTsx) {
          options.setJsx = false;
-      }
-
-      if (options.setJsx) {
+      } else {
          options.setTsx = false;
       }
 
